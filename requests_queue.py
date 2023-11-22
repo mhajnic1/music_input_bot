@@ -1,27 +1,32 @@
 import requests
 import time
+import random
+# Specify the path to your input file
+file_path = r"path to txt file with music choices"
 
+# Read the lines from the file
+with open(file_path, "r") as music:
+    lines = music.readlines()
 
-with open(r"C:\Users\MH\Desktop\Projekti\DiscordBots\PlayMusic\music.txt", "r") as music:
-	lines = music.readlines()
+# Remove leading and trailing whitespaces from each line
+pjesma = [line.strip() for line in lines]
 
-pjesma = []
+# Specify the Discord bot API endpoint
+url = "message url"
 
-for l in lines:
-    as_list = l.split("\n")
-    pjesma.append(as_list[0])  
+# Specify the Discord bot authorization token
+headers = {
+    "Authorization": "authorisation code"
+}
 
-for k in pjesma:
-    url = "https://discord.com/api/v9/channels/942845010896900146/messages"
-
+# Loop through each song and send a play command to the bot
+for song in pjesma:
     payload = {
-            "content" : "p!Play " + k
-        }
+        "content": "test is " + song
+    }
 
-    headers = {
-            "Authorization" : "MzA4Mzk4Mjk5MjI2OTYzOTY4.Gaw_8V.Fete7q0U-hrQJjzJUtoucvaf8yrwiPeCWmIAso"
-        }
-
-    res = requests.post(url, payload, headers = headers)
-
-    time.sleep(1)
+    res = requests.post(url, payload, headers=headers)
+    print(payload)
+    # Generate a random waiting time between 1.5 and 4 seconds
+    wait_time = random.uniform(1.5, 4.0)
+    time.sleep(wait_time)
